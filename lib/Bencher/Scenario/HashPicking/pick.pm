@@ -21,6 +21,11 @@ our $scenario = {
             code_template => 'state $hash = <hash>; state $keys = <keys>; Hash::Subset::hashref_subset($hash, $keys)',
         },
         {
+            module => 'Hash::Subset',
+            function => 'hash_subset',
+            code_template => 'state $hash = <hash>; state $keys = <keys>; +{ Hash::Subset::hash_subset($hash, $keys) }',
+        },
+        {
             name => 'map',
             code_template => 'state $hash = <hash>; state $keys = <keys>; +{ map { (exists $hash->{$_} ? ($_ => $hash->{$_}) : ()) } @$keys}',
         },
