@@ -3,7 +3,7 @@ package Bencher::Scenario::HashPicking::pick;
 # DATE
 # VERSION
 
-use 5.010001;
+use 5.020000;
 use strict;
 use warnings;
 
@@ -14,6 +14,11 @@ our $scenario = {
             module => 'Hash::Util::Pick',
             function => 'pick',
             code_template => 'state $hash = <hash>; state $keys = <keys>; Hash::Util::Pick::pick($hash, @$keys)',
+        },
+        {
+            module => 'Hash::Subset',
+            function => 'hashref_subset',
+            code_template => 'state $hash = <hash>; state $keys = <keys>; Hash::Subset::hashref_subset($hash, $keys)',
         },
         {
             name => 'map',
