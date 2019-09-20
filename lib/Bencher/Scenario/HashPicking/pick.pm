@@ -3,7 +3,7 @@ package Bencher::Scenario::HashPicking::pick;
 # DATE
 # VERSION
 
-use 5.020000;
+use 5.020000; # for hash slice support
 use strict;
 use warnings;
 
@@ -27,6 +27,22 @@ our $scenario = {
         {
             name => 'map+grep',
             code_template => 'state $hash = <hash>; state $keys = <keys>; +{ map {$_ => $hash->{$_}} grep { exists $hash->{$_} } @$keys}',
+        },
+        {
+            name => 'hash slice',
+            description => <<'_',
+
+This particular participant is not entirely equivalent to the others: it creates
+all wanted keys, regardless of whether the keys exist in the original hash. When
+a key does not exist in the original hash, it will be set with the value of
+`undef`.
+
+_
+            code_template => 'state $hash = <hash>; { %{$hash}{@{<keys>}} }',
+        },
+        {
+            name => 'hash slice+exists',
+            code_template => 'state $hash = <hash>; { %{$hash}{grep { exists $hash->{$_} } @{<keys>}} }',
         },
     ],
 
